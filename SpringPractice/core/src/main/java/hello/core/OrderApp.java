@@ -7,18 +7,26 @@ import hello.core.member.MemberServiceImpl;
 import hello.core.order.Order;
 import hello.core.order.OrderService;
 import hello.core.order.OrderServiceImpl;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class OrderApp {
     public static void main(String[] args) {
-        AppConfig appConfig = new AppConfig();
-        MemberService memberService = appConfig.memberService();
-        OrderService orderService = appConfig.orderService();
+//        AppConfig appConfig = new AppConfig();
+//        MemberService memberService = appConfig.memberService();
+//        OrderService orderService = appConfig.orderService();
+
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
+        OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
+
 
         Member member = new Member(1L, "Java", Grade.VIP);
 
         memberService.join(member);
 
-        Order orderReceive = orderService.createOrder(member.getId(), "아이템1", 10000);
+        Order orderReceive = orderService.createOrder(member.getId(), "아이템1", 20000);
 
         System.out.println("orderReceive = " + orderReceive);
         System.out.println("orderReceive.getDiscountPrice() = " + orderReceive.getDiscountPrice());

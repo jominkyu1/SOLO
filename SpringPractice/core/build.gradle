@@ -10,6 +10,12 @@ version = '0.0.1-SNAPSHOT'
 java {
 	sourceCompatibility = '11'
 }
+ //롬복 설정시작
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+} // 롬복 설정 끝
 
 repositories {
 	mavenCentral()
@@ -18,6 +24,14 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	//롬복 라이브러리 시작
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
+	//롬복 라이브러리 끝
 }
 
 tasks.named('test') {
