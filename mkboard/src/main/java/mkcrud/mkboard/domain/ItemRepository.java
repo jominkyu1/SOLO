@@ -10,4 +10,6 @@ public interface ItemRepository {
     Item findItemById(Long id);
 
     void itemUpdate(Long itemId, Item item);
+
+    int itemCnt();
 }

@@ -6,7 +6,7 @@ import java.util.*;
 public class MemoryItemRepository implements ItemRepository {
     private final HashMap<Long, Item> itemMap = new HashMap<>();
     private Long sequence = 0L;
-
+    
     @Override
     public List<Item> showList(){
         List<Item> items = new ArrayList<>(itemMap.values());
@@ -33,5 +33,10 @@ public class MemoryItemRepository implements ItemRepository {
 
         foundItem.setTitle(item.getTitle());
         foundItem.setContent(item.getContent());
+    }
+
+    @Override
+    public int itemCnt() {
+        return 5; //아이템 총 개수
     }
 }
