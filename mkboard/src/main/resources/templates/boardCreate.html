@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:href="'https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css'"
+          href="./css/bootstrap.min.css" rel="stylesheet">
+    <!-- 네이버 API -->
+    <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+
+</head>
+<body>
+<form class="container container-md my-3 border border-2 p-3"
+        th:action="@{/user/signup}" th:object="${userCreateForm}" method="post">
+    <!--<div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
+    <div class="alert alert-danger" th:if="${#fields.hasAnyErrors()}" role="alert">
+        <div th:each="err : ${#fields.allErrors()}" th:text="${err}"></div>
+    </div>
+    <div class="mb-3">
+        <label th:for="username" class="form-label">유저네임</label>
+        <input type="text" th:field="*{username}" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label th:for="password1" class="form-label">비밀번호</label>
+        <input type="password" th:field="*{password1}" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label th:for="password2" class="form-label">비밀번호 확인</label>
+        <input type="password" th:field="*{password2}" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label th:for="email" class="form-label">이메일</label>
+        <input type="email" th:field="*{email}" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">회원가입</button>
+    <hr>
+    <!-- Move the Naver login initialization and button creation inside the <form> tag -->
+    <div id="naver_id_login"></div>
+    <script type="text/javascript">
+        var naver_id_login = new naver_id_login("AMzZxRZoZMbvDbR7DU8G", "http://localhost:8080/");
+        var state = naver_id_login.getUniqState();
+        naver_id_login.setButton("green", 3, 40);
+        naver_id_login.setDomain(".service.com");
+        naver_id_login.setState(state);
+        naver_id_login.init_naver_id_login();
+    </script>
+</form>
+</body>
+</html>

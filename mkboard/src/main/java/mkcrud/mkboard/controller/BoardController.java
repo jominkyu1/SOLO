@@ -28,7 +28,7 @@ public class BoardController {
             @RequestParam(name = "page", defaultValue = "1") int page,
             Model model) {
         int totalItems = itemRepository.itemCnt();
-        int pageSize = 5; //한 페이지에 보여줄 게시글 수
+        int pageSize = 10; //한 페이지에 보여줄 게시글 수
         int totalPages = (int) Math.ceil((double) totalItems/pageSize); //총 페이지 수
         List<Item> items = itemRepository.showList();
         // page-1 * 5 = 0, 5, 10, 15
@@ -49,9 +49,11 @@ public class BoardController {
         if ( page == totalPages) {
             List<Item> sList = items.subList(((page-1) * pageSize), totalItems);
             model.addAttribute("items", sList);
+            log.info("sList size: {}", sList.size());
         } else {
-            List<Item> sList = items.subList(((page-1) * pageSize), 5 * page);
+            List<Item> sList = items.subList(((page-1) * pageSize), pageSize * page);
             model.addAttribute("items", sList);
+            log.info("sList size: {}", sList.size());
         }
 
         model.addAttribute("currentPage",page);
